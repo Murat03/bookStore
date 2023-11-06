@@ -1,4 +1,5 @@
-﻿using Entities.Models;
+﻿using Entities.Exceptions;
+using Entities.Models;
 using Repositories.Contracts;
 using Services.Contracts;
 using System;
@@ -25,7 +26,7 @@ namespace Services.Concrete
 		}
 		public void UpdateOneBook(int id, Book book, bool trackChanges)
 		{
-			var entity = GetOneBook(id, trackChanges);
+			var entity = GetOneBookByIdAndCheckExist(id, trackChanges);
 			//mapper
 			entity.Title = book.Title;
 			entity.Price = book.Price;
@@ -35,7 +36,7 @@ namespace Services.Concrete
 		}
 		public void DeleteOneBook(int id, bool trackChanges)
 		{
-			var book = GetOneBook(id, trackChanges);
+			var book = GetOneBookByIdAndCheckExist(id, trackChanges);
 			_repositorymanager.BookRepository.DeleteOneBook(book);
 			_repositorymanager.SaveChanges();
 		}
@@ -45,9 +46,13 @@ namespace Services.Concrete
 			return _repositorymanager.BookRepository.GetAllBooks(trackChanges);
 		}
 
-		public Book GetOneBook(int id, bool trackChanges)
+		public Book GetOneBookByIdAndCheckExist(int id, bool trackChanges)
 		{
-			return _repositorymanager.BookRepository.GetOneBook(id, trackChanges);
+			var book = _repositorymanager.BookRepository.GetOneBook(id, trackChanges);
+			if (book is null)
+				throw new BookNotFoundException(id);
+
+			return book;
 		}
 
 		

@@ -28,11 +28,7 @@ namespace Presentation.Controllers
 		[HttpGet("{id:int}")]
 		public IActionResult GetOneBook([FromRoute(Name = "id")] int id)
 		{
-			var book = _manager.BookService.GetOneBook(id, false);
-			if (book == null)
-			{
-				return NotFound();
-			}
+			var book = _manager.BookService.GetOneBookByIdAndCheckExist(id, false);
 			return Ok(book);
 		}
 		[HttpPost]
@@ -56,11 +52,7 @@ namespace Presentation.Controllers
 		[HttpPatch("{id:int}")]
 		public IActionResult PartiallyUpdateOneBook([FromRoute(Name ="id")]int id, [FromBody]JsonPatchDocument<Book> bookPatch)
 		{
-			var entity = _manager.BookService.GetOneBook(id,true);
-
-			if (entity is null)
-				return NotFound();
-
+			var entity = _manager.BookService.GetOneBookByIdAndCheckExist(id,true);
 			bookPatch.ApplyTo(entity);
 			_manager.BookService.UpdateOneBook(id, entity, true);
 			return NoContent();
