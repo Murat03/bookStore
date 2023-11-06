@@ -1,4 +1,6 @@
-﻿using Entities.Models;
+﻿using AutoMapper;
+using Entities.DataTransferObjects;
+using Entities.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
@@ -15,9 +17,11 @@ namespace Presentation.Controllers
 	public class BooksController : ControllerBase
 	{
 		private readonly IServiceManager _manager;
-		public BooksController(IServiceManager manager)
+		private readonly IMapper _mapper;
+		public BooksController(IServiceManager manager, IMapper mapper)
 		{
 			_manager = manager;
+			_mapper = mapper;
 		}
 		[HttpGet]
 		public IActionResult GetAllBooks()
@@ -38,9 +42,9 @@ namespace Presentation.Controllers
 			return StatusCode(201, book);
 		}
 		[HttpPut("{id:int}")]
-		public IActionResult UpdateOneBook([FromRoute(Name ="id")]int id, [FromBody]Book book)
+		public IActionResult UpdateOneBook([FromRoute(Name ="id")]int id, [FromBody]BookDtoForUpdate bookDto)
 		{
-			_manager.BookService.UpdateOneBook(id, book, false);
+			_manager.BookService.UpdateOneBook(id, bookDto, false);
 			return NoContent();
 		}
 		[HttpDelete("{id:int}")]
@@ -54,7 +58,8 @@ namespace Presentation.Controllers
 		{
 			var entity = _manager.BookService.GetOneBookByIdAndCheckExist(id,true);
 			bookPatch.ApplyTo(entity);
-			_manager.BookService.UpdateOneBook(id, entity, true);
+			var book = _mapper.Map<BookDtoForUpdate>(entity);
+			_manager.BookService.UpdateOneBook(id, book, true);
 			return NoContent();
 		}
 	}

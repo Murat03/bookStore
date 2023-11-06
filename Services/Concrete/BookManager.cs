@@ -1,4 +1,6 @@
-﻿using Entities.Exceptions;
+﻿using AutoMapper;
+using Entities.DataTransferObjects;
+using Entities.Exceptions;
 using Entities.Models;
 using Repositories.Contracts;
 using Services.Contracts;
@@ -12,49 +14,48 @@ namespace Services.Concrete
 {
 	public class BookManager : IBookService
 	{
-		private readonly IRepositoryManager _repositorymanager;
+		private readonly IRepositoryManager _repositoryManager;
+		private readonly IMapper _mapper;
 
-		public BookManager(IRepositoryManager repositorymanager)
+		public BookManager(IRepositoryManager repositorymanager, IMapper mapper)
 		{
-			_repositorymanager = repositorymanager;
+			_repositoryManager = repositorymanager;
+			_mapper = mapper;
 		}
 
 		public void CreateOneBook(Book book)
 		{
-			_repositorymanager.BookRepository.CreateOneBook(book);
-			_repositorymanager.SaveChanges();
+			_repositoryManager.BookRepository.CreateOneBook(book);
+			_repositoryManager.SaveChanges();
 		}
-		public void UpdateOneBook(int id, Book book, bool trackChanges)
+		public void UpdateOneBook(int id, BookDtoForUpdate bookDto, bool trackChanges)
 		{
 			var entity = GetOneBookByIdAndCheckExist(id, trackChanges);
 			//mapper
-			entity.Title = book.Title;
-			entity.Price = book.Price;
+			entity = _mapper.Map<Book>(entity);
 
-			_repositorymanager.BookRepository.UpdateOneBook(entity);
-			_repositorymanager.SaveChanges();
+			_repositoryManager.BookRepository.UpdateOneBook(entity);
+			_repositoryManager.SaveChanges();
 		}
 		public void DeleteOneBook(int id, bool trackChanges)
 		{
 			var book = GetOneBookByIdAndCheckExist(id, trackChanges);
-			_repositorymanager.BookRepository.DeleteOneBook(book);
-			_repositorymanager.SaveChanges();
+			_repositoryManager.BookRepository.DeleteOneBook(book);
+			_repositoryManager.SaveChanges();
 		}
 
 		public IEnumerable<Book> GetAllBooks(bool trackChanges)
 		{
-			return _repositorymanager.BookRepository.GetAllBooks(trackChanges);
+			return _repositoryManager.BookRepository.GetAllBooks(trackChanges);
 		}
 
 		public Book GetOneBookByIdAndCheckExist(int id, bool trackChanges)
 		{
-			var book = _repositorymanager.BookRepository.GetOneBook(id, trackChanges);
+			var book = _repositoryManager.BookRepository.GetOneBook(id, trackChanges);
 			if (book is null)
 				throw new BookNotFoundException(id);
 
 			return book;
 		}
-
-		
 	}
 }
