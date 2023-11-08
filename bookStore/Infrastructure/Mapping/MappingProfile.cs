@@ -9,7 +9,9 @@ namespace bookStore.Infrastructure.Mapping
         public MappingProfile()
         {
             CreateMap<BookDtoForUpdate, Book>().ReverseMap();
+            CreateMap<BookDto, BookDtoForUpdate>();
             CreateMap<Book, BookDto>();
+            CreateMap<BookDtoForInsertion, Book>();
         }
     }
 }

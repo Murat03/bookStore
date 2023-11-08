@@ -23,16 +23,19 @@ namespace Services.Concrete
 			_mapper = mapper;
 		}
 
-		public void CreateOneBook(Book book)
+		public BookDto CreateOneBook(BookDtoForInsertion bookDto)
 		{
+			var book = _mapper.Map<Book>(bookDto);
 			_repositoryManager.BookRepository.CreateOneBook(book);
 			_repositoryManager.SaveChanges();
+			return _mapper.Map<BookDto>(book);
 		}
 		public void UpdateOneBook(int id, BookDtoForUpdate bookDto, bool trackChanges)
 		{
 			var entity = GetOneBookByIdAndCheckExist(id, trackChanges);
 			//mapper
-			entity = _mapper.Map<Book>(entity);
+
+			_mapper.Map(bookDto, entity);
 
 			_repositoryManager.BookRepository.UpdateOneBook(entity);
 			_repositoryManager.SaveChanges();
@@ -57,6 +60,24 @@ namespace Services.Concrete
 				throw new BookNotFoundException(id);
 
 			return book;
+		}
+		public BookDto GetOneBookById(int id, bool trackChanges)
+		{
+			var book = GetOneBookByIdAndCheckExist(id, trackChanges);
+			return _mapper.Map<BookDto>(book);
+		}
+
+		public (BookDtoForUpdate bookDtoForUpdate, Book book) GetOneBookForPatch(int id, bool trackChanges)
+		{
+			var entity = GetOneBookByIdAndCheckExist(id, trackChanges);
+			var bookDto = _mapper.Map<BookDtoForUpdate>(entity);
+			return (bookDto, entity);
+		}
+
+		public void SaveChangesForPatch(BookDtoForUpdate bookDtoForUpdate, Book book)
+		{
+			_mapper.Map(bookDtoForUpdate, book);
+			_repositoryManager.SaveChanges();
 		}
 	}
 }
