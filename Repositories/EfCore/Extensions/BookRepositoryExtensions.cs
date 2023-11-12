@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,6 +22,19 @@ namespace Repositories.EfCore.Extensions
 				return books;
 
 			return books.Where(b => b.Title.ToLower().Contains(searchTerm.Trim().ToLower()));
+		}
+		public static IQueryable<Book> Sort(this IQueryable<Book> books,
+			string orderByQueryString)
+		{
+			if(string.IsNullOrWhiteSpace(orderByQueryString))
+				return books.OrderBy(b => b.BookId);
+
+			var orderQuery = OrderQueryBuilder.CreateOrderQuery<Book>(orderByQueryString);
+
+			if(orderQuery is null)
+				return books.OrderBy(b => b.BookId);
+
+			return books.OrderBy(orderQuery);
 		}
 	}
 }
