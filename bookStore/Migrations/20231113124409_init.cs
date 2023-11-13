@@ -12,19 +12,19 @@ namespace bookStore.Migrations
                 name: "Books",
                 columns: table => new
                 {
-                    BookId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Books", x => x.BookId);
+                    table.PrimaryKey("PK_Books", x => x.Id);
                 });
 
             migrationBuilder.InsertData(
                 table: "Books",
-                columns: new[] { "BookId", "Price", "Title" },
+                columns: new[] { "Id", "Price", "Title" },
                 values: new object[] { 1, 100m, "Title" });
         }
 

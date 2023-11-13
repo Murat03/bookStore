@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Entities.DataTransferObjects;
+using Microsoft.EntityFrameworkCore;
 using Presentation.ActionFilters;
 using Repositories.Contracts;
 using Repositories.EfCore;
@@ -25,6 +26,8 @@ namespace bookStore.Infrastructure.Extensions
 			services.AddScoped<IBookService, BookManager>();
 
 			services.AddSingleton<ILoggerService, LoggerManager>();
+
+			services.AddScoped<IDataShaper<BookDto>, DataShaper<BookDto>>();
 		}
 		public static void ConfigureActionFilters(this IServiceCollection services)
 		{

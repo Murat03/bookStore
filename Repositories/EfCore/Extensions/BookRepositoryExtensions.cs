@@ -27,12 +27,12 @@ namespace Repositories.EfCore.Extensions
 			string orderByQueryString)
 		{
 			if(string.IsNullOrWhiteSpace(orderByQueryString))
-				return books.OrderBy(b => b.BookId);
+				return books.OrderBy(b => b.Id);
 
 			var orderQuery = OrderQueryBuilder.CreateOrderQuery<Book>(orderByQueryString);
 
 			if(orderQuery is null)
-				return books.OrderBy(b => b.BookId);
+				return books.OrderBy(b => b.Id);
 
 			return books.OrderBy(orderQuery);
 		}

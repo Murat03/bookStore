@@ -14,10 +14,10 @@ namespace Repositories.EfCore.Config
 	{
 		public void Configure(EntityTypeBuilder<Book> builder)
 		{
-			builder.HasKey(b => b.BookId);
+			builder.HasKey(b => b.Id);
 			builder.HasData(new Book
 			{
-				BookId = 1,
+				Id = 1,
 				Title = "Title",
 				Price = 100
 			});

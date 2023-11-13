@@ -32,6 +32,6 @@ namespace Repositories.EfCore
 		}
 
 		public async Task<Book> GetOneBookAsync(int id, bool trackChanges) => 
-			await FindByCondition(b => b.BookId.Equals(id), trackChanges).SingleOrDefaultAsync();
+			await FindByCondition(b => b.Id.Equals(id), trackChanges).SingleOrDefaultAsync();
 	}
 }
