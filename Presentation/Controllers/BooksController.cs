@@ -21,11 +21,9 @@ namespace Presentation.Controllers
 	public class BooksController : ControllerBase
 	{
 		private readonly IServiceManager _manager;
-		private readonly IMapper _mapper;
-		public BooksController(IServiceManager manager, IMapper mapper)
+		public BooksController(IServiceManager manager)
 		{
 			_manager = manager;
-			_mapper = mapper;
 		}
 		[HttpGet]
 		public async Task<IActionResult> GetAllBooks([FromQuery]BookParameters bookParameters)

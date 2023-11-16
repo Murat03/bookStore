@@ -25,7 +25,7 @@ namespace bookStore.Infrastructure.Formatters
 		}
 		private static void FormatCsv(StringBuilder buffer, BookDto book)
 		{
-			buffer.AppendLine($"{book.BookId}, {book.Title}, {book.Price}");
+			buffer.AppendLine($"{book.Id}, {book.Title}, {book.Price}");
 		}
 		public override async Task WriteResponseBodyAsync(OutputFormatterWriteContext context, 
 			Encoding selectedEncoding)

@@ -11,7 +11,7 @@ using Repositories.EfCore;
 namespace bookStore.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20231113124409_init")]
+    [Migration("20231113140620_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
