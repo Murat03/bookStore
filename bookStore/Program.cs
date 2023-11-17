@@ -18,8 +18,8 @@ builder.Services.AddControllers(config =>
 })
 .AddXmlDataContractSerializerFormatters()
 .AddCustomCsvFormatter()
-.AddNewtonsoftJson()
 .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
+//.AddNewtonsoftJson();
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
@@ -36,6 +36,7 @@ builder.Services.ConfigureServiceRegistration();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.ConfigureActionFilters();
 builder.Services.ConfigureCors();
+builder.Services.AddCustomMediaTypes();
 
 var app = builder.Build();
 
