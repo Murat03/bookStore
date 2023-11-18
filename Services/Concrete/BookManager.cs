@@ -90,5 +90,10 @@ namespace Services.Concrete
 			_mapper.Map(bookDtoForUpdate, book);
 			await _repositoryManager.SaveChangesAsync();
 		}
+
+		public async Task<List<Book>> GetAllBooksAsync(bool trackChanges)
+		{
+			return await _repositoryManager.BookRepository.GetAllBooksAsync(trackChanges);
+		}
 	}
 }

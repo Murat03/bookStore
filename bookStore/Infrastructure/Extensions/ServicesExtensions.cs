@@ -1,8 +1,10 @@
 ﻿using Entities.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Presentation.ActionFilters;
+using Presentation.Controllers;
 using Repositories.Contracts;
 using Repositories.EfCore;
 using Services.Concrete;
@@ -62,6 +64,9 @@ namespace bookStore.Infrastructure.Extensions
 				{
 					systemTextJsonOutputFormatter.SupportedMediaTypes
 					.Add("application/vnd.mstore.hateoas+json");
+
+					systemTextJsonOutputFormatter.SupportedMediaTypes
+					.Add("application/vnd.mstore.apiroot+json");
 				}
 
 				var xmlOutputFormatter = config
@@ -73,7 +78,26 @@ namespace bookStore.Infrastructure.Extensions
 				{
 					xmlOutputFormatter.SupportedMediaTypes
 					.Add("application/vnd.mstore.hateoas+xml");
+
+					xmlOutputFormatter.SupportedMediaTypes
+					.Add("application/vnd.mstore.apiroot+xml");
 				}
+			});
+		}
+		public static void ConfigureVersioning(this IServiceCollection services)
+		{
+			services.AddApiVersioning(opt =>
+			{
+				opt.ReportApiVersions = true;
+				opt.AssumeDefaultVersionWhenUnspecified = true;
+				opt.DefaultApiVersion = new ApiVersion(1, 0);
+				opt.ApiVersionReader = new HeaderApiVersionReader("api-version");
+
+				opt.Conventions.Controller<BooksController>()
+				.HasApiVersion(new ApiVersion(1, 0));
+
+				opt.Conventions.Controller<BooksV2Controller>().
+				HasDeprecatedApiVersion(new ApiVersion(2, 0));
 			});
 		}
 	}
