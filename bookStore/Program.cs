@@ -1,3 +1,4 @@
+using AspNetCoreRateLimit;
 using bookStore.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -38,9 +39,18 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.ConfigureActionFilters();
 builder.Services.ConfigureCors();
 builder.Services.AddCustomMediaTypes();
+
+//For versioning
 builder.Services.ConfigureVersioning();
+
+//For caching
 builder.Services.ConfigureResponseCaching();
 builder.Services.ConfigureHttpCacheHeaders();
+
+//For rate limit
+builder.Services.AddMemoryCache();
+builder.Services.ConfigureRateLimitingOptions();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -59,7 +69,12 @@ if (app.Environment.IsProduction())
 }
 app.UseHttpsRedirection();
 
+//Rate limit
+app.UseIpRateLimiting();
+
 app.UseCors("CorsPolicy");
+
+//Caching
 app.UseResponseCaching();
 app.UseHttpCacheHeaders();
 
