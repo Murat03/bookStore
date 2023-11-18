@@ -391,3 +391,35 @@
 2023-11-18 15:20:30.6039 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.5.2160. Product version: 5.2.5+7c014325443d65541200b698a50b9dd4ec30c7f0. GlobalAssemblyCache: False
 2023-11-18 15:20:30.6275 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=D:\Yazilim\C#\Projects\Api\bookStore\bookStore\nlog.config
 2023-11-18 15:20:30.6505 Info Configuration initialized.
+2023-11-18 15:52:17.5981 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-11-18 15:52:17.6484 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.5.2160. Product version: 5.2.5+7c014325443d65541200b698a50b9dd4ec30c7f0. GlobalAssemblyCache: False
+2023-11-18 15:52:17.6984 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=D:\Yazilim\C#\Projects\Api\bookStore\bookStore\nlog.config
+2023-11-18 15:52:17.7243 Info Configuration initialized.
+2023-11-18 15:53:49.1851 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-11-18 15:53:49.2234 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.5.2160. Product version: 5.2.5+7c014325443d65541200b698a50b9dd4ec30c7f0. GlobalAssemblyCache: False
+2023-11-18 15:53:49.2571 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=D:\Yazilim\C#\Projects\Api\bookStore\bookStore\nlog.config
+2023-11-18 15:53:49.2773 Info Configuration initialized.
+2023-11-18 16:14:02.4917 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-11-18 16:14:02.5352 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.5.2160. Product version: 5.2.5+7c014325443d65541200b698a50b9dd4ec30c7f0. GlobalAssemblyCache: False
+2023-11-18 16:14:02.5688 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=D:\Yazilim\C#\Projects\Api\bookStore\bookStore\nlog.config
+2023-11-18 16:14:02.5914 Info Configuration initialized.
+2023-11-18 16:22:38.0189 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-11-18 16:22:38.0665 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.5.2160. Product version: 5.2.5+7c014325443d65541200b698a50b9dd4ec30c7f0. GlobalAssemblyCache: False
+2023-11-18 16:22:38.0978 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=D:\Yazilim\C#\Projects\Api\bookStore\bookStore\nlog.config
+2023-11-18 16:22:38.1334 Info Configuration initialized.
+2023-11-18 16:31:18.2791 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-11-18 16:31:18.3154 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.5.2160. Product version: 5.2.5+7c014325443d65541200b698a50b9dd4ec30c7f0. GlobalAssemblyCache: False
+2023-11-18 16:31:18.3468 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=D:\Yazilim\C#\Projects\Api\bookStore\bookStore\nlog.config
+2023-11-18 16:31:18.3720 Info Configuration initialized.
+2023-11-18 16:34:31.1700 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-11-18 16:34:31.2436 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.5.2160. Product version: 5.2.5+7c014325443d65541200b698a50b9dd4ec30c7f0. GlobalAssemblyCache: False
+2023-11-18 16:34:31.2850 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=D:\Yazilim\C#\Projects\Api\bookStore\bookStore\nlog.config
+2023-11-18 16:34:31.3181 Info Configuration initialized.
+2023-11-18 16:35:28.8883 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-11-18 16:35:28.9176 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.5.2160. Product version: 5.2.5+7c014325443d65541200b698a50b9dd4ec30c7f0. GlobalAssemblyCache: False
+2023-11-18 16:35:28.9413 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=D:\Yazilim\C#\Projects\Api\bookStore\bookStore\nlog.config
+2023-11-18 16:35:28.9634 Info Configuration initialized.
+2023-11-18 16:37:25.0569 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-11-18 16:37:25.0981 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.2.5.2160. Product version: 5.2.5+7c014325443d65541200b698a50b9dd4ec30c7f0. GlobalAssemblyCache: False
+2023-11-18 16:37:25.1188 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=D:\Yazilim\C#\Projects\Api\bookStore\bookStore\nlog.config
+2023-11-18 16:37:25.1367 Info Configuration initialized.
