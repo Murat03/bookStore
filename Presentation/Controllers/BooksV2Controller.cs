@@ -12,6 +12,7 @@ namespace Presentation.Controllers
 	//Switched to Convention Versioning
 	[ApiController]
 	[Route("api/books")]
+	[ApiExplorerSettings(GroupName ="v2")]
 	//[Route("api/{v:apiversion}/books")] //url versioning
 	public class BooksV2Controller : ControllerBase
 	{
