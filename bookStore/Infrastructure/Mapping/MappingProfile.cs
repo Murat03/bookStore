@@ -12,6 +12,7 @@ namespace bookStore.Infrastructure.Mapping
             CreateMap<BookDto, BookDtoForUpdate>();
             CreateMap<Book, BookDto>();
             CreateMap<BookDtoForInsertion, Book>();
+            CreateMap<UserForRegistrationDto, User>();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Entities.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Repositories.EfCore
 {
-	public class RepositoryContext : DbContext
+	public class RepositoryContext : IdentityDbContext<User>
 	{
         public RepositoryContext(DbContextOptions options):base(options){}
 
@@ -17,7 +18,7 @@ namespace Repositories.EfCore
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			base.OnModelCreating(modelBuilder);
+			base.OnModelCreating(modelBuilder);// Identity kısmı için gerekli aksi durumda olmasa da olur.
 			modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 		}
 	}
