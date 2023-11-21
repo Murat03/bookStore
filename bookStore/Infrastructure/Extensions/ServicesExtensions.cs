@@ -36,6 +36,7 @@ namespace bookStore.Infrastructure.Extensions
 		{
 			services.AddScoped<IServiceManager, ServiceManager>();
 			services.AddScoped<IBookService, BookManager>();
+			services.AddScoped<ICategoryService, CategoryManager>();
 
 			services.AddSingleton<ILoggerService, LoggerManager>();
 

@@ -19,7 +19,8 @@ namespace Repositories.EfCore.Config
 			{
 				Id = 1,
 				Title = "Title",
-				Price = 100
+				Price = 100,
+				CategoryId = 1
 			});
 		}
 	}

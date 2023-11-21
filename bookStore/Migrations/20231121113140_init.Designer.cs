@@ -12,7 +12,7 @@ using Repositories.EfCore;
 namespace bookStore.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20231120091241_init")]
+    [Migration("20231121113140_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,9 @@ namespace bookStore.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -41,14 +44,51 @@ namespace bookStore.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Books");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
+                            CategoryId = 1,
                             Price = 100m,
                             Title = "Title"
+                        });
+                });
+
+            modelBuilder.Entity("Entities.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"), 1L, 1);
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            CategoryName = "Education"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            CategoryName = "Novel"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            CategoryName = "Philosophy"
                         });
                 });
 
@@ -158,22 +198,22 @@ namespace bookStore.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0b758481-0ffa-44b1-9329-370c464afe30",
-                            ConcurrencyStamp = "f262840a-bab0-4f4d-bd4e-e85ee86617aa",
+                            Id = "87c5f8c6-2b9f-45ce-a6c7-88457b82a36d",
+                            ConcurrencyStamp = "f7376a97-9d21-4eae-9b36-9a090ee022de",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "52bd658d-005e-4f84-98db-95ff7e7da906",
-                            ConcurrencyStamp = "c1449573-505e-4b6e-ba30-22bec8e47431",
+                            Id = "6151f19d-0ca2-4fe1-8736-40b65020216d",
+                            ConcurrencyStamp = "7485ae7b-e3c6-4f11-800c-e58e82ce5a08",
                             Name = "Editor",
                             NormalizedName = "EDITOR"
                         },
                         new
                         {
-                            Id = "2582e039-22af-4012-a9e4-f333f4615393",
-                            ConcurrencyStamp = "a6f0227f-cf46-4860-8a94-8b267ebe6127",
+                            Id = "bca626f8-50aa-428d-a064-9a27a7b53730",
+                            ConcurrencyStamp = "36a6871e-cefe-4f83-bd37-1b7f3bfc05ff",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -283,6 +323,17 @@ namespace bookStore.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Entities.Models.Book", b =>
+                {
+                    b.HasOne("Entities.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

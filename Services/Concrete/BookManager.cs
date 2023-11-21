@@ -17,20 +17,24 @@ namespace Services.Concrete
 {
 	public class BookManager : IBookService
 	{
+		private readonly ICategoryService _categoryService;
 		private readonly IRepositoryManager _repositoryManager;
 		private readonly IMapper _mapper;
 		private readonly IDataShaper<BookDto> _shaper;
 		private readonly IBookLinks _bookLinks;
 
-		public BookManager(IRepositoryManager repositorymanager, IMapper mapper, IDataShaper<BookDto> shaper, IBookLinks bookLinks)
+		public BookManager(IRepositoryManager repositorymanager, IMapper mapper, IDataShaper<BookDto> shaper, IBookLinks bookLinks, ICategoryService categoryService)
 		{
 			_repositoryManager = repositorymanager;
 			_mapper = mapper;
 			_shaper = shaper;
 			_bookLinks = bookLinks;
+			_categoryService = categoryService;
 		}
 		public async Task<BookDto> CreateOneBookAsync(BookDtoForInsertion bookDto)
 		{
+			var category = await _categoryService.GetOneCategoryByIdAsync(bookDto.CategoryId, false);
+
 			var book = _mapper.Map<Book>(bookDto);
 			_repositoryManager.BookRepository.CreateOneBook(book);
 			await _repositoryManager.SaveChangesAsync();
@@ -94,6 +98,11 @@ namespace Services.Concrete
 		public async Task<List<Book>> GetAllBooksAsync(bool trackChanges)
 		{
 			return await _repositoryManager.BookRepository.GetAllBooksAsync(trackChanges);
+		}
+
+		public async Task<IEnumerable<Book>> GetAllBooksWithDetailsAsync(bool trackChanges)
+		{
+			return await _repositoryManager.BookRepository.GetAllBooksWithDetailsAsync(trackChanges);
 		}
 	}
 }

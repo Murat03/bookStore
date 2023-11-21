@@ -53,17 +53,16 @@ namespace bookStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Books",
+                name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Books", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
                 });
 
             migrationBuilder.CreateTable(
@@ -172,20 +171,51 @@ namespace bookStore.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Books",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Books", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Books_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "CategoryId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "0b758481-0ffa-44b1-9329-370c464afe30", "f262840a-bab0-4f4d-bd4e-e85ee86617aa", "User", "USER" },
-                    { "2582e039-22af-4012-a9e4-f333f4615393", "a6f0227f-cf46-4860-8a94-8b267ebe6127", "Admin", "ADMIN" },
-                    { "52bd658d-005e-4f84-98db-95ff7e7da906", "c1449573-505e-4b6e-ba30-22bec8e47431", "Editor", "EDITOR" }
+                    { "6151f19d-0ca2-4fe1-8736-40b65020216d", "7485ae7b-e3c6-4f11-800c-e58e82ce5a08", "Editor", "EDITOR" },
+                    { "87c5f8c6-2b9f-45ce-a6c7-88457b82a36d", "f7376a97-9d21-4eae-9b36-9a090ee022de", "User", "USER" },
+                    { "bca626f8-50aa-428d-a064-9a27a7b53730", "36a6871e-cefe-4f83-bd37-1b7f3bfc05ff", "Admin", "ADMIN" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "CategoryId", "CategoryName" },
+                values: new object[,]
+                {
+                    { 1, "Education" },
+                    { 2, "Novel" },
+                    { 3, "Philosophy" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Books",
-                columns: new[] { "Id", "Price", "Title" },
-                values: new object[] { 1, 100m, "Title" });
+                columns: new[] { "Id", "CategoryId", "Price", "Title" },
+                values: new object[] { 1, 1, 100m, "Title" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -225,6 +255,11 @@ namespace bookStore.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Books_CategoryId",
+                table: "Books",
+                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -252,6 +287,9 @@ namespace bookStore.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }
